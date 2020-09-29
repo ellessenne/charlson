@@ -262,5 +262,16 @@ lofregex[["elixhauser"]][["icd10"]][["drug"]] <- "^F11|^F12|^F13|^F14|^F15|^F16|
 lofregex[["elixhauser"]][["icd10"]][["psycho"]] <- "^F20|^F22|^F23|^F24|^F25|^F28|^F29|^F302|^F312|^F315"
 lofregex[["elixhauser"]][["icd10"]][["depre"]] <- "^F204|^F313|^F314|^F315|^F32|^F33|^F341|^F412|^F432"
 
+# Get lofmsdrg and elixhauser_ahrq lofregex
+source('maintenance/convert-sas.R')
+
+# Add elixhauser_ahrq (AHRQ_list; see comorbidity/maintenance/convert_sas.R and
+# comorbidity/maintenance/AHRQ_sas_conversion.txt for details)
+lofregex[["elixhauser_ahrq"]] <- list()
+lofregex[["elixhauser_ahrq"]][["icd10"]] <- AHRQ_list
+
 # Export data as internal
-usethis::use_data(lofregex, internal = TRUE, overwrite = TRUE)
+usethis::use_data(lofregex, lofmsdrg, internal = TRUE, overwrite = TRUE)
+
+# Clean up space
+rm(list=ls())
