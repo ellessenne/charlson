@@ -125,6 +125,10 @@ test_that("charlson checks for its arguments properly", {
   expect_error(
     comorbidity(x = x, id = "id", code = "code", score = "charlson", icd = 10)
   )
+  expect_error(
+    comorbidity(x = x, id = "id", code = "code", score = "elixhauser", assign0 = "score", icd = "icd10am"),
+    "ICD-10-AM codes currently only works for Charlson score"
+  )
 })
 
 test_that("comorbidity returns a data.frame", {
